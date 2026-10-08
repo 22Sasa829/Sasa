@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sazy – Unlock</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+  <style>
+    :root {
+      --bg: #120e14;
+      --card: #1f1724;
+      --text: #fff5f8;
+      --muted: #c9a8b8;
+      --accent: #ff6b9d;
+      --accent-soft: #ff8fb3;
+      --border: rgba(255, 150, 180, 0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(255, 107, 157, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(255, 140, 180, 0.08) 0%, transparent 45%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 380px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+
+    .emoji {
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(120deg, #fff 30%, #ffb6c9 70%, #ff8fb3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .turnstile-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      min-height: 65px;
+    }
+
+    .status {
+      font-size: 0.9rem;
+      color: var(--muted);
+      min-height: 24px;
+    }
+
+    .status.success {
+      color: #7dffb3;
+    }
+
+    .status.error {
+      color: #ff6b9d;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      opacity: 0.7;
+    }
+
+    .back:hover {
+      opacity: 1;
+      color: var(--accent-soft);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="emoji">🩵</div>
+    <h1>Just a quick check</h1>
+    <p>Confirm you’re human to unlock more of me ;)</p>
+
+    <div class="turnstile-wrap">
+      <div
+        class="cf-turnstile"
+        data-sitekey="0x4AAAAAAFRZvqCEHYEtL8Lf"
+        data-callback="onSuccess"
+        data-error-callback="onError"
+        data-theme="dark"
+        data-size="normal"
+      ></div>
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <a href="/" class="back">← zurück</a>
+  </div>
+
+  <script>
+    // OnlyFans Trial Link – hier kannst du ihn später ändern
+    const OF_LINK = "https://onlyfans.com/sazera/trial/ojmccj0sxdscd84nbs4ynwidzlxslwfz";
+
+    function onSuccess(token) {
+      const status = document.getElementById("status");
+      status.textContent = "Verified ✓ Redirecting…";
+      status.className = "status success";
+
+      // Kurze Pause, dann weiterleiten
+      setTimeout(() => {
+        window.location.href = OF_LINK;
+      }, 600);
+    }
+
+    function onError() {
+      const status = document.getElementById("status");
+      status.textContent = "Something went wrong. Please try again.";
+      status.className = "status error";
+    }
+  </script>
+</body>
+</html>
