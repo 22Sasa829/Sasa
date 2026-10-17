@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sazy</title>
+  <meta name="description" content="Sazy – currently listening" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <style>
+    :root {
+      --bg: #0f0c12;
+      --card: #1a1520;
+      --text: #fff5f8;
+      --muted: #c9a8b8;
+      --accent: #1DB954; /* Spotify green */
+      --border: rgba(255, 150, 180, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(ellipse at 30% 0%, rgba(29, 185, 84, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 100%, rgba(255, 107, 157, 0.06) 0%, transparent 45%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 16px 60px;
+      line-height: 1.5;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid transparent;
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  linear-gradient(135deg, #1DB954, #ff6b9d) border-box;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+    }
+
+    .name {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+
+    .bio {
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+      margin-top: -8px;
+    }
+
+    .now-playing {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .now-playing .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .spotify-embed {
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .spotify-embed iframe {
+      width: 100%;
+      height: 152px;
+      border: none;
+    }
+
+    .links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 999px;
+      background: linear-gradient(145deg, #2a1f2e, #1f1724);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(145deg, #1DB954, #1ed760);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 12px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.6;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <img
+      src="images/profile.jpg"
+      alt="Sazy"
+      class="profile-pic"
+    />
+
+    <h1 class="name">Sazy</h1>
+    <p class="bio">currently listening 🎧</p>
+
+    <div class="now-playing">
+      <div class="label">Now Playing</div>
+      <div class="spotify-embed">
+        <!-- Spotify Embed – Track hier austauschen -->
+        <iframe
+          style="border-radius:12px"
+          src="https://open.spotify.com/embed/track/4cOdK2wGLETKBW3PvgPWqT?utm_source=generator&theme=0"
+          width="100%"
+          height="152"
+          frameBorder="0"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="links">
+      <a
+        href="https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT"
+        class="btn"
+        target="_blank"
+        rel="noopener"
+      >
+        Open in Spotify
+      </a>
+    </div>
+
+    <footer>
+      © 2026 Sazy
+    </footer>
+  </div>
+</body>
+</html>
