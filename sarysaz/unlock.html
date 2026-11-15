@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Sarysaz – Unlock</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://challenges.cloudflare.com" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:system-ui,-apple-system,sans-serif;
+      background:#0a0a0f;
+      color:#fff;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:24px 16px;
+    }
+    .card{
+      width:100%;
+      max-width:380px;
+      background:#12121a;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:32px 26px;
+      text-align:center;
+    }
+    .emoji{font-size:2.2rem;margin-bottom:10px}
+    h1{font-size:1.3rem;font-weight:700;margin-bottom:8px}
+    p{color:rgba(255,255,255,.55);font-size:.95rem;margin-bottom:22px;line-height:1.5}
+    .turnstile-wrap{display:flex;justify-content:center;margin-bottom:14px;min-height:65px}
+    .status{font-size:.9rem;color:rgba(255,255,255,.5);min-height:20px}
+    .status.error{color:#ff6b9d}
+    .back{display:inline-block;margin-top:14px;font-size:.85rem;color:rgba(255,255,255,.45);text-decoration:none}
+    #success-view{display:none}
+    .of-btn{
+      display:block;width:100%;padding:15px 18px;border-radius:999px;
+      background:linear-gradient(90deg,#f8fafc,#fbcfe8,#f9a8d4);color:#111;
+      font-size:1.05rem;font-weight:700;text-decoration:none;margin-top:8px;
+    }
+    .verified{color:#7dffb3;font-size:.95rem;font-weight:600;margin-bottom:10px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div id="check-view">
+      <div class="emoji">🩵</div>
+      <h1>Just a quick check</h1>
+      <p>Confirm you’re human to unlock exclusive content</p>
+      <div class="turnstile-wrap">
+        <div class="cf-turnstile"
+             data-sitekey="0x4AAAAAAFRZvqCEHYEtL8Lf"
+             data-callback="onSuccess"
+             data-error-callback="onError"
+             data-theme="dark"
+             data-size="normal"></div>
+      </div>
+      <div class="status" id="status"></div>
+      <a href="index.html" class="back">← back</a>
+    </div>
+    <div id="success-view">
+      <div class="emoji">✅</div>
+      <h1>You're in!</h1>
+      <div class="verified">Verified ✓</div>
+      <p>Opening OnlyFans…</p>
+      <a href="#" id="of-btn" class="of-btn">Continue to OnlyFans 🔥</a>
+      <a href="index.html" class="back">← back</a>
+    </div>
+  </div>
+  <script>
+    var OF_LINK = "https://onlyfans.com/sazera/trial/ojmccj0sxdscd84nbs4ynwidzlxslwfz";
+    function openOF(){
+      if(/Instagram/i.test(navigator.userAgent)){
+        window.location.href="instagram://extbrowser/?url="+encodeURIComponent(OF_LINK);
+        setTimeout(function(){window.location.href=OF_LINK},700);
+      }else{
+        window.location.href=OF_LINK;
+      }
+    }
+    function onSuccess(){
+      document.getElementById("check-view").style.display="none";
+      document.getElementById("success-view").style.display="block";
+      openOF();
+      document.getElementById("of-btn").onclick=function(e){e.preventDefault();openOF()};
+    }
+    function onError(){
+      var s=document.getElementById("status");
+      s.textContent="Something went wrong. Please try again.";
+      s.className="status error";
+    }
+  </script>
+</body>
+</html>
