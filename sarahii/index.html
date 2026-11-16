@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to my safe space 💕</title>
+  <meta name="description" content="Your free guide is ready. DM Enrico on Instagram." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0f0c10" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(236, 95, 139, 0.14), transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(180, 100, 160, 0.1), transparent 45%),
+        #0f0c10;
+      color: #f3e6eb;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 28px 16px 120px;
+      line-height: 1.7;
+    }
+    .card {
+      width: 100%;
+      max-width: 440px;
+      background: linear-gradient(180deg, rgba(36, 26, 34, 0.96), rgba(24, 18, 24, 0.98));
+      border-radius: 28px;
+      padding: 40px 26px 32px;
+      border: 1px solid rgba(255, 150, 180, 0.16);
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      margin: 0 auto;
+    }
+    .emoji-top {
+      text-align: center;
+      font-size: 1.9rem;
+      margin-bottom: 6px;
+    }
+    h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+    p {
+      font-size: 1.02rem;
+      color: #e0cdd4;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    p strong { color: #fff; font-weight: 700; }
+    .changes-box {
+      background: rgba(255, 150, 180, 0.07);
+      border: 1px solid rgba(255, 150, 180, 0.22);
+      border-radius: 16px;
+      padding: 16px 14px;
+      margin: 8px 0 18px;
+    }
+    .changes-box p {
+      margin-bottom: 0;
+      text-align: left;
+      font-size: 0.98rem;
+    }
+    .end-cta {
+      display: none;
+      text-align: center;
+      margin-top: 28px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #ffffff;
+      opacity: 0.85;
+      letter-spacing: 0.01em;
+    }
+    .end-cta.visible {
+      display: block;
+    }
+    .bubble {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%) translateY(140%);
+      width: calc(100% - 36px);
+      max-width: 380px;
+      background: rgba(28, 20, 26, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 160, 190, 0.35);
+      border-radius: 22px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45);
+      cursor: pointer;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 100;
+      overflow: hidden;
+    }
+    .bubble.visible {
+      transform: translateX(-50%) translateY(0);
+    }
+    .bubble::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 180, 210, 0.18), transparent);
+      animation: shine 3.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes shine {
+      0% { left: -100%; }
+      40% { left: 140%; }
+      100% { left: 140%; }
+    }
+    .bubble-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 0.01em;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-expand {
+      display: none;
+      margin-top: 24px;
+      padding-top: 8px;
+    }
+    .cta-expand.open {
+      display: block;
+    }
+    .cta {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin: 0 0 12px;
+      padding: 17px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f48fb1, #e84a7f);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 12px 32px rgba(232, 74, 127, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .cta:active { transform: scale(0.98); }
+    .ig-handle {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #a08090;
+      margin-bottom: 8px;
+    }
+    .hint {
+      text-align: center;
+      font-size: 0.88rem;
+      color: #d4c0c8;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+    .trust {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .trust span {
+      font-size: 0.75rem;
+      color: #b090a0;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 0.72rem;
+      color: #6a5660;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="emoji-top">💕</div>
+    <h1>Hey ✨</h1>
+
+    <div class="story">
+      <p>I was so tired of feeling like I was doing everything right and still getting <strong>nowhere</strong> 😭</p>
+
+      <p>Posting every day, replying to everyone, trying new prices… and it just kept resetting. Some weeks looked okay, then it would go quiet again and I’d sit there wondering what I was missing.</p>
+
+      <p>I even did all the <strong>trend & dance videos</strong> (the Sophie Rain style stuff). Put time into them and got basically <strong>zero</strong> useful traffic.</p>
+
+      <div class="changes-box">
+        <p>What finally shifted it:<br>
+        I <strong>changed my niche</strong> (stopped trying to be for everyone).<br>
+        Switched my main <strong>traffic</strong> from TikTok to Instagram.<br>
+        Fixed my <strong>backend</strong>, <strong>chatting</strong> and the actual <strong>scripts</strong>.<br>
+        Got clear on <strong>pricing</strong> and <strong>boundaries</strong>.</p>
+      </div>
+
+      <p><strong>Did less and made more</strong>. Once those pieces were in place it stopped feeling random and finally started building 💅</p>
+
+      <p>There’s always a way out of that stuck feeling. The stuff that actually <strong>moved the needle</strong> for me just wasn’t the obvious advice.</p>
+
+      <p>If you’re in that place right now… you’ll probably <strong>get it</strong>.</p>
+    </div>
+
+    <div class="end-cta" id="endCta">
+      👇 Click “Want the guide?” below<br>to get it
+    </div>
+
+    <div class="cta-expand" id="ctaExpand">
+      <a class="cta" href="https://instagram.com/thatenrico" target="_blank" rel="noopener">
+        👉 DM Enrico “SAUCE” on Instagram
+      </a>
+      <p class="ig-handle">@ThatEnrico</p>
+      <p class="hint">If you want the short breakdown of what actually changed for me (took me from around $1.4k to $19k a month), just send him the word <strong>SAUCE</strong>.</p>
+      <div class="trust">
+        <span>Free guide</span>
+        <span>No fluff</span>
+        <span>Just what worked</span>
+      </div>
+    </div>
+
+    <footer>Private · Not affiliated with Reddit</footer>
+  </div>
+
+  <div class="bubble" id="bubble">
+    <span class="bubble-text">Want the guide? ✨</span>
+  </div>
+
+  <script>
+    const bubble = document.getElementById('bubble');
+    const ctaExpand = document.getElementById('ctaExpand');
+    const endCta = document.getElementById('endCta');
+
+    setTimeout(function() {
+      bubble.classList.add('visible');
+      endCta.classList.add('visible');
+    }, 10000);
+
+    bubble.addEventListener('click', function() {
+      ctaExpand.classList.add('open');
+      bubble.style.display = 'none';
+      endCta.style.display = 'none';
+      setTimeout(() => {
+        ctaExpand.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 80);
+    });
+  </script>
+</body>
+</html>
