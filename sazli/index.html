@@ -3,93 +3,255 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spotify – Song</title>
-  <meta name="description" content="Listen on Spotify" />
+  <title>Sazli</title>
+  <meta name="description" content="Sazli" />
   <meta name="robots" content="noindex, nofollow" />
-  <meta name="theme-color" content="#121212" />
+  <link rel="preload" as="image" href="images/photo.jpg" />
+  <link rel="preload" as="image" href="images/avatar.jpg" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #121212;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 24px 16px;
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:system-ui,-apple-system,sans-serif;
+      background:#0a0a0f;
+      color:#fff;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:16px;
     }
-    .card {
-      width: 100%;
-      max-width: 360px;
-      text-align: center;
+    .card{
+      width:100%;
+      max-width:380px;
+      background:#12121a;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:0 20px 50px rgba(0,0,0,.45);
+      position:relative;
     }
-    .cover {
-      width: 220px;
-      height: 220px;
-      margin: 0 auto 22px;
-      border-radius: 12px;
-      background: linear-gradient(145deg, #1db954 0%, #191414 55%, #535353 100%);
-      box-shadow: 0 16px 40px rgba(0,0,0,.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.2rem;
+    .hero{
+      position:relative;
+      width:100%;
+      aspect-ratio:3/4;
+      max-height:520px;
+      overflow:hidden;
     }
-    .logo {
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: #1db954;
-      margin-bottom: 18px;
-      text-transform: uppercase;
+    .hero img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
-    h1 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      letter-spacing: -0.02em;
+    .hero::after{
+      content:"";
+      position:absolute;
+      left:0;right:0;bottom:0;
+      height:45%;
+      background:linear-gradient(to top, #12121a 10%, transparent);
+      pointer-events:none;
     }
-    .artist {
-      color: #b3b3b3;
-      font-size: 0.98rem;
-      margin-bottom: 28px;
+    .online{
+      position:absolute;
+      top:14px;left:14px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      background:rgba(0,0,0,.55);
+      backdrop-filter:blur(8px);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.78rem;
+      font-weight:600;
+      z-index:2;
     }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 14px 18px;
-      border-radius: 999px;
-      background: #1db954;
-      color: #000;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      margin-bottom: 12px;
+    .online i{
+      width:8px;height:8px;
+      background:#22c55e;
+      border-radius:50%;
+      display:inline-block;
     }
-    .btn.secondary {
-      background: transparent;
-      color: #fff;
-      border: 1px solid #535353;
-      font-weight: 600;
+    .body{
+      padding:8px 20px 28px;
+      margin-top:-48px;
+      position:relative;
+      z-index:2;
+      text-align:center;
     }
-    .meta {
-      margin-top: 28px;
-      font-size: 0.75rem;
-      color: #6a6a6a;
-      line-height: 1.5;
+    .name{
+      font-size:1.85rem;
+      font-weight:700;
+      letter-spacing:-.02em;
+      margin-bottom:14px;
+    }
+    .socials{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-bottom:18px;
+    }
+    .icon{
+      width:42px;height:42px;
+      border-radius:50%;
+      background:rgba(255,255,255,.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      color:#fff;
+      font-size:1.05rem;
+      font-weight:700;
+    }
+    .cta{
+      display:block;
+      width:100%;
+      padding:16px 20px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#f8fafc,#fbcfe8,#f9a8d4);
+      color:#111;
+      font-size:1.08rem;
+      font-weight:700;
+      margin-bottom:12px;
+      box-shadow:0 8px 24px rgba(249,168,212,.25);
+      border:none;
+      cursor:pointer;
+    }
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      width:100%;
+      padding:14px 18px;
+      border-radius:999px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.1);
+      color:#fff;
+      font-size:.98rem;
+      font-weight:600;
+      text-decoration:none;
+      margin-bottom:10px;
+    }
+    footer{
+      text-align:center;
+      padding:4px 0 0;
+      font-size:.75rem;
+      color:rgba(255,255,255,.4);
+    }
+    dialog#age-gate{
+      border:none;
+      border-radius:24px;
+      padding:0;
+      width:min(340px, calc(100% - 2rem));
+      max-width:340px;
+      background:rgba(255,255,255,.92);
+      color:#111;
+      box-shadow:0 20px 50px rgba(0,0,0,.45);
+      margin:auto;
+    }
+    dialog#age-gate::backdrop{
+      background:rgba(0,0,0,.75);
+      backdrop-filter:blur(8px);
+    }
+    .gate-inner{padding:28px 24px;text-align:center}
+    .gate-avatar{
+      width:64px;height:64px;
+      border-radius:50%;
+      object-fit:cover;
+      margin:0 auto 14px;
+      display:block;
+      border:3px solid #fff;
+      box-shadow:0 4px 14px rgba(0,0,0,.18);
+    }
+    .gate-inner h2{font-size:1.2rem;font-weight:700;margin-bottom:6px}
+    .gate-line{width:48px;height:1px;background:#d4d4d4;margin:12px auto}
+    .gate-inner p{font-size:.9rem;color:#555;line-height:1.45;margin-bottom:20px}
+    .gate-yes{
+      display:block;
+      width:100%;
+      padding:14px;
+      border-radius:999px;
+      background:#111;
+      color:#fff;
+      font-size:1rem;
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+    }
+    .gate-no{
+      display:block;
+      width:100%;
+      margin-top:10px;
+      padding:10px;
+      background:none;
+      border:none;
+      color:#777;
+      font-size:.9rem;
+      cursor:pointer;
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="logo">Spotify</div>
-    <div class="cover">🎵</div>
-    <h1>Late Night Drive</h1>
-    <p class="artist">Playlist · Various Artists</p>
-    <a class="btn" href="https://open.spotify.com" target="_blank" rel="noopener">Play on Spotify</a>
-    <a class="btn secondary" href="https://open.spotify.com" target="_blank" rel="noopener">Open app</a>
-    <p class="meta">Preview only · Link opens Spotify</p>
+    <div class="hero">
+      <div class="online"><i></i> Online</div>
+      <img src="images/photo.jpg" alt="Sazli" width="900" height="1200" fetchpriority="high" decoding="async" />
+    </div>
+    <div class="body">
+      <h1 class="name">Sazli 💕</h1>
+      <div class="socials">
+        <a class="icon" href="https://instagram.com/sazli" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+        <a class="icon" href="https://twitter.com" target="_blank" rel="noopener" aria-label="X">X</a>
+      </div>
+      <button type="button" class="cta" id="cta-btn">Exclusive Content</button>
+      <a class="btn" href="https://instagram.com/sazli" target="_blank" rel="noopener">Instagram</a>
+      <a class="btn" href="https://twitter.com" target="_blank" rel="noopener">X</a>
+      <footer>© 2026 Sazli</footer>
+    </div>
   </div>
+
+  <dialog id="age-gate" aria-labelledby="age-title">
+    <div class="gate-inner">
+      <img class="gate-avatar" src="images/avatar.jpg" alt="Sazli" width="64" height="64" />
+      <h2 id="age-title">Age Verification Required</h2>
+      <div class="gate-line"></div>
+      <p>This link may contain sensitive content that is not appropriate for all audiences.</p>
+      <button type="button" class="gate-yes" id="age-yes">I am 18 or older</button>
+      <button type="button" class="gate-no" id="age-no">I am under 18</button>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      var UNLOCK_URL = "https://sazeri.fyi/sazli/unlock.html";
+      var gate = document.getElementById("age-gate");
+      var cta = document.getElementById("cta-btn");
+      var yes = document.getElementById("age-yes");
+      var no = document.getElementById("age-no");
+
+      function openUnlockInSafari() {
+        if (/Instagram/i.test(navigator.userAgent)) {
+          window.location.href = "instagram://extbrowser/?url=" + encodeURIComponent(UNLOCK_URL);
+          setTimeout(function () { window.location.href = "unlock.html"; }, 800);
+        } else {
+          window.location.href = "unlock.html";
+        }
+      }
+
+      cta.addEventListener("click", function () {
+        if (typeof gate.showModal === "function") gate.showModal();
+        else openUnlockInSafari();
+      });
+
+      yes.addEventListener("click", function () {
+        try { sessionStorage.setItem("age_ok", "1"); } catch (e) {}
+        if (gate.open) gate.close();
+        openUnlockInSafari();
+      });
+
+      no.addEventListener("click", function () {
+        gate.close();
+      });
+    })();
+  </script>
 </body>
 </html>
