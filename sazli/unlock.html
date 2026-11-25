@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://challenges.cloudflare.com" />
   <link rel="preload" as="image" href="images/avatar.jpg" />
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{
@@ -41,12 +41,12 @@
     .name{font-size:1.05rem;font-weight:600;color:rgba(255,255,255,.75);margin-bottom:6px}
     h1{font-size:1.3rem;font-weight:700;margin-bottom:8px}
     p{color:rgba(255,255,255,.55);font-size:.95rem;margin-bottom:22px;line-height:1.5}
-    .turnstile-wrap{display:flex;justify-content:center;margin-bottom:14px;min-height:65px}
-    .status{font-size:.9rem;color:rgba(255,255,255,.5);min-height:20px}
+    .turnstile-wrap{display:flex;justify-content:center;margin-bottom:14px;min-height:70px}
+    .status{font-size:.9rem;color:rgba(255,255,255,.5);min-height:20px;margin-bottom:8px}
     .status.error{color:#ff6b9d}
     .back{display:inline-block;margin-top:14px;font-size:.85rem;color:rgba(255,255,255,.45);text-decoration:none}
-    #success-view{display:none}
-    .of-btn{
+    #success-view,#fallback-view{display:none}
+    .of-btn,.fallback-btn{
       display:block;width:100%;padding:15px 18px;border-radius:999px;
       background:linear-gradient(90deg,#f8fafc,#fbcfe8,#f9a8d4);color:#111;
       font-size:1.05rem;font-weight:700;text-decoration:none;margin-top:8px;border:none;cursor:pointer;
@@ -62,16 +62,21 @@
       <h1>Just a quick check</h1>
       <p>Confirm you’re human to unlock exclusive content</p>
       <div class="turnstile-wrap">
-        <div class="cf-turnstile"
-             data-sitekey="0x4AAAAAAFRZvqCEHYEtL8Lf"
-             data-callback="onSuccess"
-             data-error-callback="onError"
-             data-theme="dark"
-             data-size="normal"></div>
+        <div id="cf-widget"></div>
       </div>
-      <div class="status" id="status"></div>
+      <div class="status" id="status">Loading check…</div>
       <a href="index.html" class="back">← back</a>
     </div>
+
+    <div id="fallback-view">
+      <img class="avatar" src="images/avatar.jpg" alt="Sazli" width="72" height="72" />
+      <div class="name">Sazli 💕</div>
+      <h1>Open in browser</h1>
+      <p>Instagram blocked the security check. Tap below to continue in Safari.</p>
+      <button type="button" class="fallback-btn" id="fallback-btn">Continue 🔥</button>
+      <a href="index.html" class="back">← back</a>
+    </div>
+
     <div id="success-view">
       <img class="avatar" src="images/avatar.jpg" alt="Sazli" width="72" height="72" />
       <div class="name">Sazli 💕</div>
@@ -83,29 +88,86 @@
     </div>
   </div>
   <script>
+    // TODO: set your real OnlyFans link
     var OF_LINK = "https://onlyfans.com/sazera/c79";
+    var SITEKEY = "0x4AAAAAAFRZvqCEHYEtL8Lf";
+    var rendered = false;
 
     function openOF() {
       if (/Instagram/i.test(navigator.userAgent)) {
         window.location.href = "instagram://extbrowser/?url=" + encodeURIComponent(OF_LINK);
-        setTimeout(function () { window.location.href = OF_LINK; }, 700);
+        setTimeout(function () { window.location.href = OF_LINK; }, 800);
       } else {
         window.location.href = OF_LINK;
       }
     }
 
-    function onSuccess() {
+    function showSuccess() {
       document.getElementById("check-view").style.display = "none";
+      document.getElementById("fallback-view").style.display = "none";
       document.getElementById("success-view").style.display = "block";
       openOF();
       document.getElementById("of-btn").onclick = function () { openOF(); };
     }
 
+    function showFallback(msg) {
+      document.getElementById("check-view").style.display = "none";
+      document.getElementById("fallback-view").style.display = "block";
+      document.getElementById("fallback-btn").onclick = function () { openOF(); };
+      if (msg) {
+        var s = document.getElementById("status");
+        if (s) { s.textContent = msg; s.className = "status error"; }
+      }
+    }
+
+    function onSuccess() { showSuccess(); }
+
     function onError() {
       var s = document.getElementById("status");
-      s.textContent = "Something went wrong. Please try again.";
+      s.textContent = "Check failed. Try the button below.";
       s.className = "status error";
+      showFallback();
     }
+
+    function tryRender() {
+      if (rendered) return;
+      if (typeof turnstile === "undefined") return;
+      try {
+        turnstile.render("#cf-widget", {
+          sitekey: SITEKEY,
+          theme: "dark",
+          size: "normal",
+          callback: onSuccess,
+          "error-callback": onError,
+          "expired-callback": function () {
+            var s = document.getElementById("status");
+            s.textContent = "Expired – try again.";
+            s.className = "status error";
+          }
+        });
+        rendered = true;
+        document.getElementById("status").textContent = "";
+      } catch (e) {
+        showFallback();
+      }
+    }
+
+    // Wait for Turnstile API
+    var tries = 0;
+    var timer = setInterval(function () {
+      tries++;
+      if (typeof turnstile !== "undefined") {
+        clearInterval(timer);
+        tryRender();
+      } else if (tries > 20) {
+        // ~5s – Instagram WebView often blocks Turnstile
+        clearInterval(timer);
+        showFallback();
+      }
+    }, 250);
+
+    // Also hook official onload if available
+    window.onloadTurnstileCallback = tryRender;
   </script>
 </body>
 </html>
